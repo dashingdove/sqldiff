@@ -28,7 +28,7 @@ colorama.init()
 
 fcontent = file.read()
 
-objects = re.findall('(alter\s*(procedure|function|view)\s*(\[?\w*\]?)(?:\.(\[?\w*\]?))?.*?)(?:go|$)', fcontent, re.IGNORECASE|re.DOTALL)
+objects = re.findall('(alter\s*(procedure|function|view)\s*(\[?\w*\]?)(?:\.(\[?\w*\]?))?.*?)(?:\sgo\s|$)', fcontent, re.IGNORECASE|re.DOTALL)
 
 for new_def, type, schema, name in objects:
 
