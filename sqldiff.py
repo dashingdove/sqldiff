@@ -7,9 +7,16 @@ import difflib
 
 argparser = argparse.ArgumentParser('sqldiff')
 argparser.add_argument('file')
-argparser.add_argument('--conn', required=True, help='DB Connection string')
+argparser.add_argument('--conn', help='DB Connection string')
+argparser.add_argument('--db', help='Database name')
 
 args = argparser.parse_args()
+
+if not args.conn and not args.db:
+    argparser.error('No DB connection specified, use --conn or --db')
+
+if not args.conn:
+    args.conn = f"driver={{SQL Server}};server=localhost\SQLEXPRESS;database={args.db};Integrated Security=SSPI;"
 
 try:
     file = open(args.file, 'r')
