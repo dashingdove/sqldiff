@@ -52,11 +52,14 @@ for new_def, type, schema, name in objects:
 
     def sanitise_definition(definition):
         return definition.replace('\r', '').strip()
-    old_def = sanitise_definition(old_def)
-    old_def = re.sub('CREATE', new_def[:len('ALTER')], old_def[old_def.upper().index('CREATE'):], flags=re.IGNORECASE, count=1)
+    if old_def:
+        old_def = sanitise_definition(old_def)
+        old_def = re.sub('CREATE', new_def[:len('ALTER')], old_def[old_def.upper().index('CREATE'):], flags=re.IGNORECASE, count=1)
+    else:
+        old_def = ''
     new_def = sanitise_definition(new_def)
 
-    print()
+    print('---------')
 
     for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(a=old_def, b=new_def).get_opcodes():
 
