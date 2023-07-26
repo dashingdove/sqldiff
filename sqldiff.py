@@ -57,6 +57,7 @@ for new_def, type, schema, name in objects:
         old_def = re.sub('CREATE', new_def[:len('ALTER')], old_def[old_def.upper().index('CREATE'):], flags=re.IGNORECASE, count=1)
     else:
         old_def = ''
+        new_def = 'CREATE' + new_def[len('ALTER'):]
     new_def = sanitise_definition(new_def)
 
     print('---------')
